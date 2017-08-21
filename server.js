@@ -5,7 +5,7 @@ var bodyParser  = require('body-parser');
 var morgan      = require('morgan');
 var mongoose    = require('mongoose');
 var session      = require('express-session');
-
+var path = require('path');
 var passport = require('passport');
 var flash    = require('connect-flash');
 var databaseConfig = require('./config/database');
@@ -32,6 +32,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); 
 app.use(flash()); 
+app.use(express.static('public'));
+app.get('*', function(req, res){
+    res.sendFile(path.resolve(__dirname,'public','index.html'))
+})
 
 app.use('/', require('./routes')(passport));
 
