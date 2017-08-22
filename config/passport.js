@@ -1,5 +1,6 @@
-var LocalStrategy = require('passport-local').Strategy;
-var User = require('../app/models/user');
+const LocalStrategy = require('passport-local').Strategy;
+const jws = require('jsonwebtoken');
+const User = require('../app/models/user');
 
 module.exports = function (passport) {
 
@@ -20,8 +21,7 @@ module.exports = function (passport) {
         passwordField: 'password',
         passReqToCallback: true 
     },
-        function (req, email, password, done) {
-
+        function (req, email, password, done) {            
             // asynchronous
             // User.findOne wont fire unless data is sent back
             process.nextTick(function () {

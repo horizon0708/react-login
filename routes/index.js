@@ -4,6 +4,7 @@ var router = express.Router();
 var records = require('./records.js');
 var account = require('./account.js');
 var tokenGen = require('./tokenGen.js');
+var auth = require('./auth.js');
 
 var userValidation = require('../middlewares/userValidation');
 var apiValidation = require('../middlewares/apiValidation');
@@ -12,19 +13,35 @@ module.exports = function (passport) {
 
     router.get('/', account.getIndex);
     router.get('/signup', account.getSignup);
-    router.post('/signup', passport.authenticate('local-signup', {
-        successRedirect: '/profile',
-        failureRedirect: '/signup',
-        failureFlash: true
-    }));
+    router.post('/signup', function(req,res,next){
+        return passport.authenticate('local-signup', function(err){
+            if(err){
+                console.log(err);
+            }
+
+            return res.status(200).json({
+                success: true,
+                message: 'You have successfully signed up!'
+            });
+        })(req,res,next);
+    });
     router.get('/login', account.getLogin);
-    router.post('/login', passport.authenticate('local-login', {
-        successRedirect: '/profile',
-        failureRedirect: '/login',
-        failureFlash: true
-    }));
+    router.post('/login', function(req,res,next){
+        return passport.authenticate('local-login', function(err){
+            if(err){
+                console.log(err);
+            }
+
+            return res.status(200).json({
+                success: true,
+                message: 'You have successfully logged in'
+            });
+        })(req,res,next);
+    });
     router.get('/logout', account.getLogout);
 
+       //auth API
+    router.post('/auth/login', auth.postLogin);
 
     // routes that need the user to be logged on
     router.get('/profile', userValidation, account.getProfile);

@@ -1,3 +1,11 @@
 https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens
 
 [] 404 error handling
+
+https://vladimirponomarev.com/blog/authentication-in-react-apps-jwt
+
+
+https://auth0.com/blog/secure-your-react-and-redux-app-with-jwt-authentication/
+
+
+//https://stackoverflow.com/questions/34624257/react-router-redux-how-can-i-update-state-on-load-of-page-for-authentication
