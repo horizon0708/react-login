@@ -11,8 +11,8 @@ var apiValidation = require('../middlewares/apiValidation');
 
 module.exports = function (passport) {
 
-    router.get('/', account.getIndex);
-    router.get('/signup', account.getSignup);
+    
+    
     router.post('/signup', function(req,res,next){
         return passport.authenticate('local-signup', function(err){
             if(err){
@@ -25,7 +25,6 @@ module.exports = function (passport) {
             });
         })(req,res,next);
     });
-    router.get('/login', account.getLogin);
     router.post('/login', function(req,res,next){
         return passport.authenticate('local-login', function(err){
             if(err){
@@ -44,7 +43,7 @@ module.exports = function (passport) {
     router.post('/auth/login', auth.postLogin);
 
     // routes that need the user to be logged on
-    router.get('/profile', userValidation, account.getProfile);
+    
     router.post('/tokengen', userValidation, tokenGen);
 
     //api routes that requires a token/key.
