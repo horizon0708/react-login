@@ -10,26 +10,26 @@ class Signup extends React.Component{
         super();
         this.state={
             email: '',
-            password: ''
+            password: '',
+            secret: ''
         }
     }
 
     handleSignUp =() =>{
         const user = {
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
+            secret: this.state.secret
         }
         this.props.userSignup(user);
     }
 
-    handleEmailChange = (e) =>{
-        this.setState({email: e.target.value});
+    handleFieldChange = (e, fieldName) => {
+        let field = {};
+        field[fieldName] = e.target.value
+        this.setState(field);
     }
 
-    handlePasswordChange = (e) =>{
-        this.setState({password: e.target.value});
-    }
-    
     render(){
         return(
             <Panel>
@@ -39,7 +39,7 @@ class Signup extends React.Component{
                 <FormControl 
                     type="email"
                     value={this.state.email}
-                    onChange={this.handleEmailChange}
+                    onChange={(e)=>this.handleFieldChange(e,'email')}
                     ></FormControl>
               </FormGroup>
 
@@ -48,10 +48,19 @@ class Signup extends React.Component{
                 <FormControl 
                     type="password"
                     value={this.state.password}
-                    onChange={this.handlePasswordChange}
+                    onChange={(e)=>this.handleFieldChange(e,'password')}
                     ></FormControl>
               </FormGroup>
+            
 
+            <FormGroup>
+                <ControlLabel>What is your secret? Mine's that Susan likes turtles.</ControlLabel>
+                <FormControl 
+                    type="text"
+                    value={this.state.secret}
+                    onChange={(e)=>this.handleFieldChange(e,'secret')}
+                    ></FormControl>
+              </FormGroup>
               
                 <Button onClick={this.handleSignUp}>Sign Up</Button>
                     

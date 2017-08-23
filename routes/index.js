@@ -14,6 +14,7 @@ module.exports = function (passport) {
     
     
     router.post('/signup', function(req,res,next){
+        
         return passport.authenticate('local-signup', function(err){
             if(err){
                 console.log(err);
@@ -26,14 +27,15 @@ module.exports = function (passport) {
         })(req,res,next);
     });
     router.post('/login', function(req,res,next){
-        return passport.authenticate('local-login', function(err){
+        return passport.authenticate('local-login', function(err, token, data){
             if(err){
                 console.log(err);
             }
-
+            console.log(token);
+            console.log(data);
             return res.status(200).json({
-                success: true,
-                message: 'You have successfully logged in'
+                token: token,
+                user: data
             });
         })(req,res,next);
     });

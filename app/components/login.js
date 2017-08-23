@@ -1,9 +1,12 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, Button, Well, Panel ,ControlLabel} from 'react-bootstrap';
+import { Alert, Row, Col, Form, FormGroup, FormControl, Button, Well, Panel, ControlLabel } from 'react-bootstrap';
 import { userLogin } from '../actions/userAccActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { LinkContainer } from 'react-router-bootstrap';
+import { browserHistory } from 'react-router';
+import FlashMessage  from './flashMessage';
+
 
 class Login extends React.Component {
     constructor() {
@@ -14,6 +17,7 @@ class Login extends React.Component {
         }
     }
 
+
     handleLogin = () => {
         const user = {
             email: this.state.email,
@@ -21,50 +25,59 @@ class Login extends React.Component {
         }
         this.props.userLogin(user);
     }
-
-    handleEmailChange = (e) => {
-        this.setState({ email: e.target.value });
-    }
-
-    handlePasswordChange = (e) => {
-        this.setState({ password: e.target.value });
+    handleFieldChange = (e, fieldName) => {
+        let field = {};
+        field[fieldName] = e.target.value
+        this.setState(field);
     }
 
     render() {
         return (
-            <Panel>
-                <Form>
-                    <FormGroup>
-                        <ControlLabel>Email</ControlLabel>
-                        <FormControl
-                            type="email"
-                            value={this.state.email}
-                            onChange={this.handleEmailChange}
-                        ></FormControl>
-                    </FormGroup>
+            <Row>
+                <Col>
+                    <h1>Log in</h1>
+                    <Panel>
+                        <Form>
+                            <FormGroup>
+                                <ControlLabel>Email</ControlLabel>
+                                <FormControl
+                                    type="email"
+                                    value={this.state.email}
+                                    onChange={(e) => this.handleFieldChange(e, 'email')}
+                                ></FormControl>
+                            </FormGroup>
 
-                    <FormGroup>
-                        <ControlLabel>Password</ControlLabel>
-                        <FormControl
-                            type="password"
-                            value={this.state.password}
-                            onChange={this.handlePasswordChange}
-                        ></FormControl>
-                    </FormGroup>
+                            <FormGroup>
+                                <ControlLabel>Password</ControlLabel>
+                                <FormControl
+                                    type="password"
+                                    value={this.state.password}
+                                    onChange={(e) => this.handleFieldChange(e, 'password')}
+                                ></FormControl>
+                            </FormGroup>
 
 
-                    <Button onClick={this.handleLogin}>Log in</Button>
-                    <LinkContainer to="/signup">
-                        <Button>Sign Up</Button>
+                            <Button onClick={this.handleLogin}>Log in</Button>
+                            <LinkContainer to="/signup">
+                                <Button>Sign Up</Button>
 
-                    </LinkContainer>
-                </Form>
-            </Panel>
+                            </LinkContainer>
+                        </Form>
+                    </Panel>
+                </Col>
+            </Row>
+
         )
     }
 }
+function mapStateToProps(state, ownProps) {
+    return {
+        isLoggedIn: state.userAcc.isLoggedIn
+    }
+}
+
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ userLogin }, dispatch)
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

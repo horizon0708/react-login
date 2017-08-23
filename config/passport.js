@@ -1,6 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
-const jws = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const User = require('../app/models/user');
+const secret = require('./secret');
 
 module.exports = function (passport) {
 
@@ -36,6 +37,7 @@ module.exports = function (passport) {
                         var newUser = new User();
                         newUser.local.email = email;
                         newUser.local.password = newUser.generateHash(password);
+                        newUser.local.secret = req.body.secret;
                         newUser.save(function (err) {
                             if (err)
                                 throw err;
@@ -66,7 +68,17 @@ module.exports = function (passport) {
                 if (!user.validPassword(password)){
                     return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); 
                 }
-                return done(null, user);
+                const payload = {
+                    sub: user._id
+                }
+
+                const token = jwt.sign(payload, secret());
+                const data = {
+                    email: user.local.email,
+                    secret: user.local.secret
+                }
+
+                return done(null, token, data);
             });
 
         }));
