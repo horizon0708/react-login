@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {browserHistory} from 'react-router';
 import { Row, Col } from 'react-bootstrap';
-
 import FlashMessage from './flashMessage';
 
 class Main extends React.Component {
@@ -27,9 +26,6 @@ class Main extends React.Component {
         return (
             <div>
                 <Header />
-
-                    
-
                 <Row>
                     <Col xs={12} sm={10} smOffset={1} style={{position: 'relative'}}>
                         <FlashMessage />

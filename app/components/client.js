@@ -18,7 +18,7 @@ import reducers from '../reducers/index';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
-import {syncHistoryWithStore, courterReducer} from 'react-router-redux';
+import {syncHistoryWithStore} from 'react-router-redux';
 
 const middleware = applyMiddleware(thunk, logger);
 const store = createStore(reducers, middleware);
