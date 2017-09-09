@@ -9,7 +9,9 @@ class Profile extends React.Component{
             
             
             <div style={{paddingTop: '100px'}}>
-                Hi. {console.log(this.props.userAcc.user.email)}! Your secret is '{this.props.userAcc.user.secret}'! My super secret is that I am your biggest fan! Shhh!!
+                Hi. {console.log(this.props.userAcc.user.email)}! 
+                Your secret is '{this.props.userAcc.user.secret}'! 
+                My super secret is that I am your biggest fan! Shhh!!
             </div>
         )
     }
