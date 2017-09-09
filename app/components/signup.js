@@ -3,7 +3,7 @@ import { Form , FormGroup, Panel, FormControl ,ControlLabel, Button} from 'react
 import { userSignup } from '../actions/userAccActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {browserHistory} from 'react-router';
+
 
 class Signup extends React.Component{
     constructor(){
@@ -22,7 +22,7 @@ class Signup extends React.Component{
             secret: this.state.secret
         }
         this.props.userSignup(user);
-        browserHistory.push("profile");
+
     }
 
     handleFieldChange = (e, fieldName) => {

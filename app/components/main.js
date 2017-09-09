@@ -15,7 +15,7 @@ class Main extends React.Component {
         const isLoggingIn = !prevProps.isLoggedIn && this.props.isLoggedIn
 
         if (isLoggingIn) {
-            this.props.redirectURL ? browserHistory.push(this.props.redirectURL) : browserHistory.redirect('about');
+            this.props.redirectURL ? browserHistory.push(this.props.redirectURL) : browserHistory.redirect('profile');
         } else if (isLoggingOut) {
             browserHistory.push('/logout');
             // do any kind of cleanup or post-logout redirection here

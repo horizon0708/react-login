@@ -13,6 +13,8 @@ export function userAccReducer(state = {curUrl:'/about', isLoggedIn: false}, act
             return {...state, flashMessage: null}
         case "USER_LOGOUT":
             return {...state, isLoggedIn: false, user: null}
+        case "USER_SIGNUP":
+            return {...state, isLoggedIn: true, user: action.payload.user}
     }
     return state
 }

@@ -15,14 +15,15 @@ module.exports = function (passport) {
     
     router.post('/signup', function(req,res,next){
         
-        return passport.authenticate('local-signup', function(err){
+        return passport.authenticate('local-signup', function(err, data){
             if(err){
                 console.log(err);
             }
 
             return res.status(200).json({
                 success: true,
-                message: 'You have successfully signed up!'
+                message: 'You have successfully signed up!',
+                user: data.local
             });
         })(req,res,next);
     });

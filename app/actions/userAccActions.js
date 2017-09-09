@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 export function setRedirectUrl(url){
     return dispatch=> dispatch({type:"SAVE_URL", payload: url});
 }
